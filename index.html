@@ -165,7 +165,7 @@
     </style>
 
     <script>
-        const apiKey = "";
+        const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "";
         let generatedQuestions = [];
         const els = {
             subjectSelect: document.getElementById('subjectSelect'),
