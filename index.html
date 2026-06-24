@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BME-Exam Developer | Red Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="bg-red-900 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col items-center">
+            <div class="w-full flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-user-md text-2xl text-red-300"></i>
+                    <div class="flex flex-col">
+                        <h1 class="text-xl font-bold tracking-tight">BME-Exam Developer</h1>
+                        <span class="text-[10px] text-red-300 uppercase tracking-widest font-semibold mt-0.5">© Baig AA</span>
+                    </div>
+                </div>
+                <div class="text-sm font-medium bg-red-800 px-3 py-1 rounded-full text-red-200 border border-red-700">
+                    MBBS and Postgrad Level | University of Tabuk
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Sidebar / Controls -->
+        <div class="lg:col-span-3 space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-6">
+                <h2 class="text-lg font-semibold mb-4 flex items-center text-gray-700">
+                    <i class="fas fa-cog text-red-500 mr-2"></i> Exam Parameters and Contents
+                </h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label for="subjectSelect" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                        <select id="subjectSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none bg-white text-red-700 font-medium">
+                            <option value="Microbiology">Microbiology</option>
+                            <option value="Anatomy">Anatomy</option>
+                            <option value="Behavioral Sciences">Behavioral Sciences</option>
+                            <option value="Biochemistry">Biochemistry</option>
+                            <option value="Biostatistics & Epidemiology">Biostatistics & Epidemiology</option>
+                            <option value="Embryology">Embryology</option>
+                            <option value="Genetics">Genetics</option>
+                            <option value="Histology">Histology</option>
+                            <option value="Immunology">Immunology</option>
+                            <option value="Pathology">Pathology</option>
+                            <option value="Pharmacology">Pharmacology</option>
+                            <option value="Physiology">Physiology</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="topicInput" class="block text-sm font-medium text-gray-700 mb-1">Topic / Organism</label>
+                        <input type="text" id="topicInput" placeholder="e.g., Virology, Heart Failure, Glycolysis..." 
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-colors">
+                    </div>
+
+                    <!-- Source Material Upload Section -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Source Material</label>
+                        <textarea id="contentInput" placeholder="Paste notes or upload file..." 
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2 h-24 text-sm focus:ring-2 focus:ring-red-500 outline-none"></textarea>
+                        
+                        <div class="mt-2 flex items-center gap-2">
+                            <input type="file" id="fileInput" accept=".txt,.md,.pdf,.docx" class="hidden">
+                            <button onclick="document.getElementById('fileInput').click()" 
+                                class="text-xs text-red-600 hover:text-red-800 font-medium flex items-center bg-red-50 px-3 py-1.5 rounded-lg border border-red-100">
+                                <i class="fas fa-upload mr-1"></i> Upload File
+                            </button>
+                        </div>
+
+                        <!-- Preview Window -->
+                        <div id="filePreview" class="hidden mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200 text-xs text-gray-600">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>
+                                <span id="fileName" class="font-medium truncate max-w-[150px]"></span>
+                            </div>
+                            <p class="mt-1 text-[10px] text-gray-400">File loaded successfully.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="difficultySelect" class="block text-sm font-medium text-gray-700 mb-1">Question Style</label>
+                        <select id="difficultySelect" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 outline-none bg-white text-red-700 font-medium">
+                            <option value="2nd order">2nd Order (Clinical presentation -> Mechanism/Trait)</option>
+                            <option value="3rd order">3rd Order (Clinical presentation -> Diagnosis -> Treatment)</option>
+                            <option value="1st order">1st Order (Direct recall)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="modeSelect" class="block text-sm font-medium text-gray-700 mb-1">Generation Mode</label>
+                        <select id="modeSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 outline-none bg-white text-red-700 font-medium">
+                            <option value="OBA">OBA Generator (MCQs)</option>
+                            <option value="SEQ">SEQ Developer (Short Essay)</option>
+                        </select>
+                    </div>
+
+                    <button id="generateBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-lg shadow-sm transition-colors flex items-center justify-center">
+                        <i class="fas fa-magic mr-2"></i> Generate 3 Questions
+                    </button>
+                    
+                    <div id="errorMsg" class="hidden mt-2 p-3 bg-red-50 text-red-700 text-sm rounded-lg border border-red-200">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Area -->
+        <div class="lg:col-span-9">
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100 min-h-[500px] flex flex-col relative">
+                
+                <div id="initialState" class="flex-1 flex flex-col items-center justify-center text-center opacity-100 transition-opacity">
+                    <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-file-medical-alt text-3xl text-red-500"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Ready to build your exam?</h2>
+                    <p class="text-gray-500 max-w-md">Set parameters on the left (or upload study content) to generate a batch of 3 high-yield questions.</p>
+                </div>
+
+                <div id="loadingState" class="hidden absolute inset-0 bg-white/95 z-10 flex flex-col items-center justify-center rounded-xl">
+                    <div class="loader mb-4 border-t-red-500"></div>
+                    <p class="text-red-600 font-medium animate-pulse text-lg">Drafting clinical vignettes...</p>
+                </div>
+
+                <div id="questionsListContainer" class="hidden flex-1 flex flex-col">
+                    <div class="flex justify-between items-center mb-6 border-b pb-4">
+                        <h2 class="text-2xl font-bold text-gray-800">Generated Questions</h2>
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase" id="qTopicBadge">Topic</span>
+                    </div>
+                    <div id="questionsWrapper" class="space-y-8"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #dc2626; /* red-600 */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <script>
+        const apiKey = "";
+        let generatedQuestions = [];
+        const els = {
+            subjectSelect: document.getElementById('subjectSelect'),
+            topicInput: document.getElementById('topicInput'),
+            contentInput: document.getElementById('contentInput'),
+            fileInput: document.getElementById('fileInput'),
+            filePreview: document.getElementById('filePreview'),
+            fileName: document.getElementById('fileName'),
+            difficultySelect: document.getElementById('difficultySelect'),
+            modeSelect: document.getElementById('modeSelect'),
+            generateBtn: document.getElementById('generateBtn'),
+            errorMsg: document.getElementById('errorMsg'),
+            initialState: document.getElementById('initialState'),
+            loadingState: document.getElementById('loadingState'),
+            questionsListContainer: document.getElementById('questionsListContainer'),
+            questionsWrapper: document.getElementById('questionsWrapper'),
+            qTopicBadge: document.getElementById('qTopicBadge')
+        };
+
+        // File handling
+        els.fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            els.fileName.textContent = file.name;
+            els.filePreview.classList.remove('hidden');
+
+            if (file.type === "text/plain" || file.name.endsWith('.md')) {
+                const reader = new FileReader();
+                reader.onload = (e) => { els.contentInput.value = e.target.result; };
+                reader.readAsText(file);
+            } else {
+                els.contentInput.placeholder = `File "${file.name}" detected. If it's a PDF/Word document, please ensure you copy the relevant text directly into this box for the best results.`;
+            }
+        });
+
+        async function fetchWithRetry(url, options, retries = 3) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error("API Request Failed");
+                    return await response.json();
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                    await new Promise(res => setTimeout(res, 2000));
+                }
+            }
+        }
+
+        async function generateQuestionsBatch() {
+            const subject = els.subjectSelect.value;
+            const topic = els.topicInput.value.trim() || "General";
+            const sourceContent = els.contentInput.value.trim();
+            const mode = els.modeSelect.value;
+            
+            els.errorMsg.classList.add('hidden');
+            els.initialState.classList.add('hidden');
+            els.questionsListContainer.classList.add('hidden');
+            els.loadingState.classList.remove('hidden');
+
+            const promptText = `Generate 3 USMLE questions for: ${topic} (Subject: ${subject}). 
+            ${sourceContent ? `BASE GENERATION ON THIS CONTENT: "${sourceContent}"` : "Use general high-yield medical knowledge for this topic."}
+            Style: ${els.difficultySelect.value}. Mode: ${mode}. 
+            
+            IF MODE IS OBA: return JSON: {"questions": [{"vignette": "...", "correctAnswer": "A", "options": [{"letter": "A", "text": "..."}, ...], "explanations": [{"letter": "A", "explanation": "..."}, ...]}]}.
+            
+            IF MODE IS SEQ: return JSON: {"questions": [{"vignette": "...", "subQuestions": ["a. ...", "b. ...", "c. ..."], "answerScheme": [{"subQuestion": "a.", "modelAnswer": "...", "mustAnswer": ["key1", "key2"]}]}]}.
+            
+            Return ONLY a valid JSON object.`;
+
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const result = await fetchWithRetry(url, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] }) 
+                });
+
+                let text = result.candidates[0].content.parts[0].text;
+                text = text.replace(/```json/g, "").replace(/```/g, "");
+                const parsed = JSON.parse(text);
+                
+                generatedQuestions = parsed.questions;
+                renderQuestions(mode);
+            } catch (error) {
+                console.error(error);
+                els.loadingState.classList.add('hidden');
+                els.initialState.classList.remove('hidden');
+                els.errorMsg.textContent = "Error: Check API Key or try a different topic.";
+                els.errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function renderQuestions(mode) {
+            els.loadingState.classList.add('hidden');
+            els.questionsListContainer.classList.remove('hidden');
+            els.qTopicBadge.textContent = `${els.subjectSelect.value}: ${els.topicInput.value.trim() || "Gen"}`;
+            els.questionsWrapper.innerHTML = '';
+            
+            generatedQuestions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-xl border-2 border-gray-100 shadow-sm";
+                
+                let content = "";
+                if (mode === 'OBA') {
+                    content = (q.options || []).map(opt => {
+                        const isCorrect = opt.letter === q.correctAnswer;
+                        const expl = q.explanations?.find(e => e.letter === opt.letter)?.explanation || "No explanation.";
+                        return `
+                            <div class="p-4 rounded-lg border-2 ${isCorrect ? 'bg-green-50 border-green-500' : 'bg-gray-50 border-gray-100'}">
+                                <div class="font-bold ${isCorrect ? 'text-green-800' : 'text-gray-700'}">${opt.letter}. ${opt.text}</div>
+                                <div class="text-sm mt-2"><strong>Exp:</strong> ${expl}</div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    const subQs = (q.subQuestions || []).map(sq => `<p class="text-gray-700 font-medium">${sq}</p>`).join('');
+                    const scheme = (q.answerScheme || []).map(item => `
+                        <div class="mt-3 p-3 bg-amber-50 rounded border border-amber-100">
+                            <p class="font-bold text-amber-900">${item.subQuestion}</p>
+                            <p class="text-sm text-gray-700 mt-1">${item.modelAnswer}</p>
+                            <div class="mt-2 text-xs">
+                                <span class="font-bold text-green-700">Must Answer:</span> 
+                                ${(item.mustAnswer || []).map(k => `<span class="bg-green-100 text-green-800 px-2 py-0.5 rounded mx-1">${k}</span>`).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    content = `<div class="mb-4">${subQs}</div><div class="font-bold text-red-900 border-t pt-4">Answer Scheme:</div>${scheme}`;
+                }
+
+                card.innerHTML = `
+                    <h3 class="font-bold text-red-900 mb-4">Question ${index + 1}</h3>
+                    <p class="mb-6 text-gray-800 leading-relaxed italic border-l-4 border-gray-300 pl-4">${q.vignette.replace(/\n/g, '<br>')}</p>
+                    <div class="space-y-3">${content}</div>
+                `;
+                els.questionsWrapper.appendChild(card);
+            });
+        }
+
+        els.generateBtn.addEventListener('click', generateQuestionsBatch);
+    </script>
+</body>
+</html>
