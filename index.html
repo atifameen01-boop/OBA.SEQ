@@ -33,6 +33,7 @@
                     <input type="password" id="apiKeyInput" placeholder="Enter API Key" 
                         class="bg-transparent border-none text-sm placeholder-red-200 text-white focus:outline-none w-32">
                     <button id="saveKeyBtn" class="text-xs font-medium hover:text-white text-red-100">Save</button>
+                    <button id="clearKeyBtn" class="text-[10px] bg-red-800 px-2 py-1 rounded hover:bg-red-900 transition-colors">Clear</button>
                     <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-[10px] text-red-200 hover:text-white underline decoration-red-300">Get Key</a>
                 </div>
             </div>
@@ -129,23 +130,40 @@
     <script>
         const apiKeyInput = document.getElementById('apiKeyInput');
         const saveKeyBtn = document.getElementById('saveKeyBtn');
+        const clearKeyBtn = document.getElementById('clearKeyBtn');
         const connStatus = document.getElementById('connectionStatus');
+
+        function updateConnStatus(connected) {
+            if (connected) {
+                connStatus.classList.remove('bg-red-400');
+                connStatus.classList.add('bg-green-500');
+            } else {
+                connStatus.classList.remove('bg-green-500');
+                connStatus.classList.add('bg-red-400');
+            }
+        }
 
         // Check key on load
         if (localStorage.getItem('bme_api_key')) {
             apiKeyInput.value = localStorage.getItem('bme_api_key');
-            connStatus.classList.remove('bg-red-400');
-            connStatus.classList.add('bg-green-500');
+            updateConnStatus(true);
         }
 
         saveKeyBtn.addEventListener('click', () => {
             if (apiKeyInput.value) {
                 localStorage.setItem('bme_api_key', apiKeyInput.value.trim());
-                connStatus.classList.remove('bg-red-400');
-                connStatus.classList.add('bg-green-500');
+                updateConnStatus(true);
                 saveKeyBtn.textContent = 'Saved!';
                 setTimeout(() => saveKeyBtn.textContent = 'Save', 2000);
             }
+        });
+
+        clearKeyBtn.addEventListener('click', () => {
+            localStorage.removeItem('bme_api_key');
+            apiKeyInput.value = '';
+            updateConnStatus(false);
+            clearKeyBtn.textContent = 'Cleared!';
+            setTimeout(() => clearKeyBtn.textContent = 'Clear', 2000);
         });
 
         const els = {
